@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 
-const AddTodo = (addTodo) => {
+const AddTodo = ({ addTodo }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+
   const submit = (e) => {
     e.preventDefault();
-    if(!title || !desc){
-        alert("Title or Description cannot be blank")
+    if (!title || !desc) {
+      alert("Title or Description cannot be blank");
+    } else {
+      addTodo(title, desc);
+      setTitle("");
+      setDesc("");
     }
-    addTodo(title,desc);
-
   };
   return (
     <div className="container my-3">
       <h3>Add Todo</h3>
       <form onSubmit={submit}>
-        
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Todo Title
@@ -25,7 +27,7 @@ const AddTodo = (addTodo) => {
             value={title}
             className="form-control"
             id="title"
-            onChange={(e)=>(setTitle(e.target.value))}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
 
@@ -33,7 +35,13 @@ const AddTodo = (addTodo) => {
           <label htmlFor="desc" className="form-label">
             Todo Description
           </label>
-          <input type="text" value={desc} className="form-control" id="desc" onChange={(e)=>(setDesc(e.target.value))} />
+          <input
+            type="text"
+            value={desc}
+            className="form-control"
+            id="desc"
+            onChange={(e) => setDesc(e.target.value)}
+          />
         </div>
 
         <button type="submit" className="btn btn-sm btn-success">

@@ -6,9 +6,8 @@ const Todo = ({ todo, onDelete }) => {
 
       <h4>{todo.title}</h4>
       <p>{todo.desc}</p> 
-  
 
-      <button className="btn btn-sm btn-danger my-3" onClick={()=>{onDelete(todogit)}}>
+      <button className="btn btn-sm btn-danger my-3" onClick={()=>{onDelete(todo)}}>
         Delete
       </button>
     </div>

@@ -1,11 +1,20 @@
 import "./App.css";
+import React from "react";
 import Header from "./MyComponent/Header";
 import Footer from "./MyComponent/Footer";
 import Todos from "./MyComponent/Todos";
 import AddTodo from "./MyComponent/AddTodo";
-import { useState } from "react";
+import About from "./MyComponent/About";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
+  let initTodo;
+  if (localStorage.getItem("todos") === null) {
+    initTodo = [];
+  } else {
+    initTodo = JSON.parse(localStorage.getItem("todos"));
+  }
   const onDelete = (todo) => {
     console.log("this is delete", todo);
 
@@ -14,6 +23,8 @@ function App() {
         return e !== todo;
       })
     );
+    console.log("deleted", todos);
+    localStorage.setItem("todos", JSON.stringify(todos));
   };
 
   const addTodo = (title, desc) => {
@@ -33,16 +44,32 @@ function App() {
     console.log(myTodo);
   };
 
-  const [todos, setTodos] = useState([]);
-  
+  const [todos, setTodos] = useState(initTodo);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   return (
     <>
-      <Header title="My Todos List" searchBar={false} />
-      <AddTodo addTodo={addTodo} />
-      <Todos todos={todos} onDelete={onDelete} />
+      <BrowserRouter>
+        <Header title="My Todos List" searchBar={false} />
+        <Routes>
+          <Route path="/" element={<AddTodo addTodo={addTodo} />}></Route>
+        </Routes>
+      </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Todos todos={todos} onDelete={onDelete} />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/about" element={<About />}></Route>
+        </Routes>
+      </BrowserRouter>
       <Footer />
     </>
   );
 }
-
 export default App;
