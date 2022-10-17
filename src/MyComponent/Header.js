@@ -2,12 +2,24 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-export default function Header(props) {
-
+export default function Header(props){
+  
+    let aboutStyle={
+      color: "black",
+      padding:"10px",
+      fontFamily:"Arial",
+      textDecoration: "none"
+    };
+    
+    // let navStyle={
+    //   backgroundColor: "coral"
+    // }
+ 
+  
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-primary" style={{backgroundCcolor: "#e3f2fd"}} >
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" >
           {props.title}
         </Link>
         <button
@@ -24,12 +36,12 @@ export default function Header(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-Link active" aria-current="page" to="/">
+              <Link className="nav-Link active" aria-current="page" to="/" style={aboutStyle}>
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-Link" to="/about">
+              <Link className="nav-Link" to="/about" style={aboutStyle}>
                 About
               </Link>
             </li>
@@ -54,6 +66,7 @@ export default function Header(props) {
     </nav>
   );
 }
+
 Header.prototype = {
     title: PropTypes.string,
     searchBar: PropTypes.bool.isRequired
